@@ -1,4 +1,4 @@
-const UserManager = require('./UserManager');
+const UserManager = require('../../UserManager');
 
 const run = async() =>{
     const manager = new UserManager();

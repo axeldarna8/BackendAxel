@@ -120,20 +120,22 @@ class ProductManager {
 
 }
 
+module.exports = ProductManager;
+
 let prueba = new ProductManager('prueba', 'esto es una prueba', '200', 'no image', 'abc123', '25');
 let prueba2 = new ProductManager('titulo', 'ekisde', '100', 'fotico', '7', '13');
-//let prueba3 = new ProductManager('titulo', 'ekisde', '100', 'fotico', 'asdasd', 'czxczxcasd');
-//prueba.deleteProduct(1);
+let prueba3 = new ProductManager('cumbia', 'xd', '170', 'picture', 'asdasd', 'czxczxcasd');
 prueba.getProducts();
 prueba.addProduct(prueba);
 prueba.addProduct(prueba2);
+prueba.addProduct(prueba3);/*
 prueba.getProductById(1);
-//prueba.updateProduct(1, 'xd', 'title');
+prueba.updateProduct(1, 'xd', 'title');
 prueba.getProductById(1);
 prueba.getProducts();
-//prueba.addProduct(prueba3);
-/*prueba.updateProduct(1,"titulo2" )*/
-/*prueba.getProducts();
+
+prueba.updateProduct(1,"titulo2" )
+prueba.getProducts();
 prueba.addProduct(prueba);
 let prueba2 = new ProductManager('titulo','ekisde', '100', 'fotico', '7', '13');
 prueba.addProduct(prueba2);
