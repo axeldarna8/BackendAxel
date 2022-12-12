@@ -17,7 +17,7 @@ app.get('/products', (req, res) => {
 
 app.get('/products/:pid', (req, res) => {
     const pid = req.params.pid;
-    const objeto = productos.find(u => u.id === pid);
+    const objeto = productos.find(u => u.id.toString === pid);
     if (!objeto) {
         return res.send({ error: "Objeto no encontrado" });
     } else {
