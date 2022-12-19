@@ -1,6 +1,6 @@
 let id = 0;
 import fs from 'fs';
-import productos from '../database/productos.json' assert { type: "json" };
+//import productos from '../database/productos.json' assert { type: "json" };
 //const fs = require('fs');
 //const { title } = require('process');
 
@@ -14,7 +14,7 @@ class ProductManager {
         this.status = status;
         this.stock = stock;
         this.category = category;
-        this.thumbnail = thumbnail;
+        this.thumbnail = [];
         this.id = id;       
         this.path = './database/productos.json';
     }
@@ -27,7 +27,7 @@ class ProductManager {
             console.log('ya se encuentra el producto');
         }
         else {
-            producto.id = allproducts.length;
+            producto.id = allproducts.length + 1 ;
             allproducts.push(producto);
             const jsonStr = JSON.stringify(allproducts);
             fs.writeFileSync(this.path, jsonStr);
@@ -109,7 +109,6 @@ class ProductManager {
                         json.splice(id - 1, 1);
                         const jsonStr = JSON.stringify(json);
                         fs.writeFileSync(this.path, jsonStr);
-                        console.log(json[id - 1].title);
                     } else {
                         console.log('no existe ese objeto bro');
                     }

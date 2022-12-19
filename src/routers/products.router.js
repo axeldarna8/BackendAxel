@@ -36,4 +36,27 @@ router.post('/', (req,res) =>{
     res.send({status: "Success", message: "Objeto enviado"})
 })
 
+router.put('/:pid', (req, res) =>{
+    const pid = req.params.pid;
+    const params = req.body;
+    const objeto = productos.find(u => u.id.toString() === pid);
+    if (!objeto) {
+        return res.send({ error: "Objeto no encontrado" });
+    } else {
+        productos[pid] = params;
+        res.send({status: "Success", message: "Item actualizado"});
+    }
+})
+
+router.delete('/:pid', (req, res) =>{
+    const pid = req.params.pid;
+    const objeto = productos.find(u => u.id.toString() === pid);
+    if (!objeto) {
+        return res.send({ error: "Objeto no encontrado" });
+    } else {
+        manager.deleteProduct(pid);
+        res.send({status: "Success", message: "Objeto eliminado"})
+    }
+})
+
 export default router;

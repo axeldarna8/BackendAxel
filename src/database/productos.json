@@ -1,1 +1,46 @@
-[{"title":"555555","description":"esto es una prueba","code":"dsadasd","price":"200","stock":"25","thumbnail":"no image","id":0},{"title":"8888888","description":"esto es una prueba","code":"mmmmmm","price":"200","stock":"25","thumbnail":"no image","id":1}]
+[
+    {
+        "title": "asxxxxxxxxxxxxdasd",
+        "description": "esto es una prueba",
+        "code": "asdasd",
+        "price": "asd",
+        "status": true,
+        "stock": "asasf",
+        "category": "esmeralda",
+        "thumbnail": [],
+        "id": 1
+    },
+    {
+        "title": "asxxxxxxxxxxxxdasd",
+        "description": "esto es una prueba",
+        "code": "1",
+        "price": "asd",
+        "status": true,
+        "stock": "asasf",
+        "category": "esmeralda",
+        "thumbnail": [],
+        "id": 2
+    },
+    {
+        "title": "asxxxxxxxxxxxxdasd",
+        "description": "esto es una prueba",
+        "code": "23",
+        "price": "asd",
+        "status": true,
+        "stock": "asasf",
+        "category": "esmeralda",
+        "thumbnail": [],
+        "id": 3
+    },
+    {
+        "title": "asxxxxxxxxxxxxdasd",
+        "description": "esto es una prueba",
+        "code": "0101",
+        "price": "asd",
+        "status": true,
+        "stock": "asasf",
+        "category": "esmeralda",
+        "thumbnail": [],
+        "id": 4
+    }
+]
