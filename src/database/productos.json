@@ -1,9 +1,9 @@
 [
     {
-        "title": "asxxxxxxxxxxxxdasd",
+        "title": "fruta",
         "description": "esto es una prueba",
         "code": "asdasd",
-        "price": "asd",
+        "price": "15",
         "status": true,
         "stock": "asasf",
         "category": "esmeralda",
@@ -11,10 +11,10 @@
         "id": 1
     },
     {
-        "title": "asxxxxxxxxxxxxdasd",
+        "title": "verdura",
         "description": "esto es una prueba",
         "code": "1",
-        "price": "asd",
+        "price": "326",
         "status": true,
         "stock": "asasf",
         "category": "esmeralda",
@@ -22,10 +22,10 @@
         "id": 2
     },
     {
-        "title": "asxxxxxxxxxxxxdasd",
+        "title": "coca",
         "description": "esto es una prueba",
         "code": "23",
-        "price": "asd",
+        "price": "552",
         "status": true,
         "stock": "asasf",
         "category": "esmeralda",
@@ -33,10 +33,10 @@
         "id": 3
     },
     {
-        "title": "asxxxxxxxxxxxxdasd",
+        "title": "palta",
         "description": "esto es una prueba",
         "code": "0101",
-        "price": "asd",
+        "price": "1234",
         "status": true,
         "stock": "asasf",
         "category": "esmeralda",

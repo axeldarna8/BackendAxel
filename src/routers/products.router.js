@@ -4,17 +4,27 @@ import ProductManager from "../managers/ProductManager.js";
 
 const router = Router();
 
+
 const manager = new ProductManager('../database/productos.json');
 
 router.get('/', (req, res) => {
     const limit = req.query.limit;
     if (limit) {
         const productsFiltered = productos.filter(u => u.id <= limit)
-        res.send(productsFiltered)
+        res.render('home', { user: 'Axel', productsFiltered, limit})
     } else {
-        res.send({ productos });
+        res.render('home', { user: 'Axel', productos: productos});
     }
+})
 
+router.get('/realtimeproducts', (req, res) => {
+    const limit = req.query.limit;
+    if (limit) {
+        const productsFiltered = productos.filter(u => u.id <= limit)
+        res.render('realTimeProducts', { user: 'Axel', productsFiltered, limit})
+    } else {
+        res.render('realTimeProducts', { user: 'Axel', productos: productos});
+    }
 })
 
 router.get('/:pid', (req, res) => {

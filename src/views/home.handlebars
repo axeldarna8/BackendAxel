@@ -1,0 +1,17 @@
+<div>
+    <h1>  Que anda {{user}} </h1>
+    <h2> Tu lista de items es </h2>
+        {{#if limit}}
+            {{#each productsFiltered}}
+                <div>
+                    <p> {{this.title}} ,  ${{this.price}} , {{this.description}} </p>
+                </div>
+            {{/each}}
+        {{else}}
+            {{#each productos}}
+                <div>
+                    <p> {{this.title}}, ${{this.price}} , {{this.description}} </p>
+                </div>
+            {{/each}}
+        {{/if}}
+</div>
