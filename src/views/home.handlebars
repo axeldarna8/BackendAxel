@@ -1,29 +1,37 @@
 <div>
     <h1>  Que anda {{user}} </h1>
     <h2> Tu lista de items es </h2>
+    <table>
         {{#if limit}}
             {{#each productsFiltered}}
+            <tbody>
                 <tr>
                     <td> {{this.title}} </td> 
                     <td> ${{this.price}} </td>
                     <td> {{this.description}} </td>
-                </tr> <br>
+                </tr> 
+            </tbody>
             {{/each}}
         {{else}}
             {{#if pid}}
-                    <tr>
-                        <td> {{objeto.title}} </td>
-                        <td> ${{objeto.price}} </td>
-                        <td> {{objeto.description}} </td>
-                    </tr> <br>
+            <tbody>
+                <tr>
+                    <td> {{objeto.title}} </td>
+                    <td> ${{objeto.price}} </td>
+                    <td> {{objeto.description}} </td>
+                </tr> 
+            </tbody>
             {{else}}
                 {{#each productos}}
+                <tbody>
                     <tr>
                         <td> {{this.title}} </td>
                         <td> ${{this.price}} </td>
                         <td> {{this.description}} </td>
-                    </tr> <br>
+                    </tr>
+                </tbody>
                 {{/each}}
             {{/if}}
         {{/if}}
+    </table>
 </div>
