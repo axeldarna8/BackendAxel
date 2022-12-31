@@ -12,6 +12,12 @@
             <input type="submit" value="Enviar">
         </form>
     </div>
+    <div class="divtabla">
+        <form id="delete-product-form">
+            <input type="text" name="code" placeholder="Code">
+            <input type="submit" value="Eliminar">
+        </form>
+    </div>
     <h2> Tu lista de items en tiempo real es </h2>
     <div>
         <table class="product-list">
@@ -20,10 +26,10 @@
                 <th> Precio </th>
                 <th> Descripcion </th>
                 <th> Stock </th>
+                <th> Code </th>
             </tr>
-
             <tbody id="productslist">
-
+                
             </tbody>
         </table>
     </div>
@@ -43,6 +49,9 @@
     }
     .productlist {
         text-align: center;
+    }
+    .divtabla{
+        padding: 10px;
     }
 </style>
 

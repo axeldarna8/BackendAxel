@@ -4,6 +4,7 @@ const socket = io();
 
 const productsContainer = document.getElementById("productslist");
 const createProductForm = document.getElementById("create-product-form");
+const deleteProductForm = document.getElementById("delete-product-form");
 
 socket.on('products', (productos)=>{
 
@@ -14,6 +15,7 @@ socket.on('products', (productos)=>{
             <td> ${product.price} </td>
             <td> ${product.description} </td>
             <td> ${product.stock} </td>
+            <td> ${product.code} </td>
         </tr> <br>
         `
     ).join(" ");
@@ -36,6 +38,25 @@ createProductForm.addEventListener("submit", async (e) =>{
     await fetch("/api/products", {
         body: JSON.stringify(product),
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+})
+
+deleteProductForm.addEventListener("submit", async (e) =>{
+    e.preventDefault();
+
+    const formData = new FormData(deleteProductForm);
+    
+    const product = {};
+
+    for(const field of formData.entries()){
+        product[field[0]] = field[1];
+    }
+    await fetch("/api/products", {
+        body: JSON.stringify(product),
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
