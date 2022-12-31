@@ -3,15 +3,27 @@
     <h2> Tu lista de items es </h2>
         {{#if limit}}
             {{#each productsFiltered}}
-                <div>
-                    <p> {{this.title}} ,  ${{this.price}} , {{this.description}} </p>
-                </div>
+                <tr>
+                    <td> {{this.title}} </td> 
+                    <td> ${{this.price}} </td>
+                    <td> {{this.description}} </td>
+                </tr> <br>
             {{/each}}
         {{else}}
-            {{#each productos}}
-                <div>
-                    <p> {{this.title}}, ${{this.price}} , {{this.description}} </p>
-                </div>
-            {{/each}}
+            {{#if pid}}
+                    <tr>
+                        <td> {{objeto.title}} </td>
+                        <td> ${{objeto.price}} </td>
+                        <td> {{objeto.description}} </td>
+                    </tr> <br>
+            {{else}}
+                {{#each productos}}
+                    <tr>
+                        <td> {{this.title}} </td>
+                        <td> ${{this.price}} </td>
+                        <td> {{this.description}} </td>
+                    </tr> <br>
+                {{/each}}
+            {{/if}}
         {{/if}}
 </div>

@@ -4,6 +4,7 @@ import __dirname from './utils.js';
 import { Server } from 'socket.io';
 import productsRouter from './routers/products.router.js';
 import cartRouter from './routers/cart.router.js';
+import productos from './database/productos.json' assert { type: "json" };
 
 const app = express();
 const httpServer = app.listen(8080, () => {
@@ -30,6 +31,8 @@ socketServer.on('connection' , socket =>{
     socket.on('message', data =>{
         console.log('From Client: ' , data);
     })
+
+    socket.emit('products', productos);
 })
 
 

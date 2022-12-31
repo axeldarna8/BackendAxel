@@ -18,13 +18,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/realtimeproducts', (req, res) => {
-    const limit = req.query.limit;
-    if (limit) {
-        const productsFiltered = productos.filter(u => u.id <= limit)
-        res.render('realTimeProducts', { user: 'Axel', productsFiltered, limit})
-    } else {
-        res.render('realTimeProducts', { user: 'Axel', productos: productos});
-    }
+    res.render('realTimeProducts');
 })
 
 router.get('/:pid', (req, res) => {
@@ -33,7 +27,7 @@ router.get('/:pid', (req, res) => {
     if (!objeto) {
         return res.send({ error: "Objeto no encontrado" });
     } else {
-        res.send({ objeto });
+        res.render('home', { user: 'Axel', objeto, pid});
     }
 })
 
