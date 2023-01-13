@@ -9,12 +9,12 @@
             <input type="text" name="status" placeholder="Status T or F">
             <input type="number" name="stock" placeholder="Stock">
             <input type="text" name="category" placeholder="Category">
-            <input type="submit" value="Enviar">
+            <input type="submit" value="Enviar" id="boton-enviar">
         </form>
     </div>
     <div class="divtabla">
         <form id="delete-product-form">
-            <input type="text" name="code" placeholder="Code">
+            <input type="text" name="id" placeholder="ID">
             <input type="submit" value="Eliminar">
         </form>
     </div>
@@ -32,6 +32,12 @@
                 
             </tbody>
         </table>
+    </div>
+    <div class="divchat">
+        <input type="text" id="chatBox">
+    </div>
+    <div >
+        <p class="divchat" id="messageLogs"></p>
     </div>
 </div>
 
@@ -53,8 +59,11 @@
     .divtabla{
         padding: 10px;
     }
+    .divchat{
+        padding-top: 2%;
+    }
 </style>
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"> </script>
 <script src="/js/index.js"> </script>

@@ -25,11 +25,16 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
+let messages = [];
+
 socketServer.on('connection' , socket =>{
     console.log(`New client connected, id: ${socket.id}`);
 
     socket.on('message', data =>{
-        console.log('From Client: ' , data);
+        //console.log('From Client: ' , data);  
+        console.log(data);  
+        messages.push(data);
+        socketServer.emit('messageLogs' , messages)
     })
 
     socket.emit('products', productos);
