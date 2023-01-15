@@ -37,6 +37,10 @@ socketServer.on('connection' , socket =>{
         socketServer.emit('messageLogs' , messages)
     })
 
+    socket.on('authenticated', user =>{
+        socket.broadcast.emit('newUser', user)
+    })
+
     socket.emit('products', productos);
 })
 

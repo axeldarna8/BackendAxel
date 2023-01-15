@@ -52,8 +52,6 @@ createProductForm.addEventListener("submit", async (e) =>{
 deleteProductForm.addEventListener("submit", async (e) =>{
     e.preventDefault();
 
-    const product = new FormData(deleteProductForm);
-
     await fetch("/api/products", {
         body: JSON.stringify(product),
         method: "DELETE",
@@ -101,4 +99,13 @@ socket.on('messageLogs' , data =>{
     })
 
     log.innerHTML = messages
+})
+
+socket.on('newUser' , user =>{
+    Swal.fire({
+        text: `New user connected ${user}`,
+        toast: 'true',
+        position: 'top-right'
+    })  
+    
 })
