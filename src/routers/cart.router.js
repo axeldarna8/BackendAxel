@@ -3,6 +3,7 @@ import fs from 'fs';
 import carts from '../database/carts.json' assert { type: "json" };
 import productos from '../database/productos.json' assert { type: "json" };
 import CartManager from "../Dao/managers/CartManager.js";
+import { cartsModel } from "../Dao/models/carts.model.js";
 
 const router = Router();
 const cart = new CartManager('../database/carts.json');

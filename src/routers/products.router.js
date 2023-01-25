@@ -11,6 +11,7 @@ const manager = new ProductManager('../database/productos.json');
 router.get('/users', async (req, res) => {
     try {
         const products = await productModel.find();
+        console.log(products);
         res.send({
             result: "success",
             payload: products

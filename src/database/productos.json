@@ -48,5 +48,25 @@
         "stock": "325",
         "category": "comida",
         "id": 5
+    },
+    {
+        "title": "pasta",
+        "description": "pasta",
+        "code": "658",
+        "price": "23",
+        "status": "true",
+        "stock": "322",
+        "category": "comida",
+        "id": 6
+    },
+    {
+        "title": "berenjena",
+        "description": "planta",
+        "code": "326",
+        "price": "32",
+        "status": "tr",
+        "stock": "3",
+        "category": "comida",
+        "id": 7
     }
 ]

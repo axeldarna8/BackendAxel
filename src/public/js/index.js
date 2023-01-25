@@ -1,5 +1,3 @@
-//const { create } = require("express-handlebars");
-
 const socket = io();
 
 const productsContainer = document.getElementById("productslist");
@@ -13,7 +11,7 @@ let chatBox = document.getElementById("chatBox");
 
 
 socket.on('products', (productos) => {
-
+    console.log(productos);
     const allProducts = productos.map(product =>
         `
         <tr>
