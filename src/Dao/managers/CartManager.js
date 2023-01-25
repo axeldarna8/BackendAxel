@@ -1,6 +1,6 @@
 import fs from 'fs';
-import productos from '../database/productos.json' assert { type: "json" };
-import ProductManager from "./ProductManager.js";
+import productos from '../../database/productos.json' assert { type: "json" };
+import ProductManager from "../managers/ProductManager.js";
 
 let carritomain = [];
 

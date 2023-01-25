@@ -1,1 +1,52 @@
-[{"title":"pollo","description":"ave","code":"123","price":"215","status":"true","stock":"21","category":"comida","id":1},{"title":"brocoli","description":"planta","code":"321","price":"27","status":"true","stock":"91","category":"comida","id":2},{"title":"carne","description":"carne","code":"333","price":"200","status":"true","stock":"15","category":"comida","id":3},{"title":"huevos","description":"carne","code":"666","price":"54","status":"true","stock":"2220","category":"comida","id":4},{"title":"pizza","description":"masa","code":"95A","price":"250","status":"true","stock":"325","category":"comida","id":5}]
+[
+    {
+        "title": "pollo",
+        "description": "ave",
+        "code": "123",
+        "price": "215",
+        "status": "true",
+        "stock": "21",
+        "category": "comida",
+        "id": 1
+    },
+    {
+        "title": "brocoli",
+        "description": "planta",
+        "code": "321",
+        "price": "27",
+        "status": "true",
+        "stock": "91",
+        "category": "comida",
+        "id": 2
+    },
+    {
+        "title": "carne",
+        "description": "carne",
+        "code": "333",
+        "price": "200",
+        "status": "true",
+        "stock": "15",
+        "category": "comida",
+        "id": 3
+    },
+    {
+        "title": "huevos",
+        "description": "carne",
+        "code": "666",
+        "price": "54",
+        "status": "true",
+        "stock": "2220",
+        "category": "comida",
+        "id": 4
+    },
+    {
+        "title": "pizza",
+        "description": "masa",
+        "code": "95A",
+        "price": "250",
+        "status": "true",
+        "stock": "325",
+        "category": "comida",
+        "id": 5
+    }
+]

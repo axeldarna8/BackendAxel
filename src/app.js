@@ -5,12 +5,15 @@ import { Server } from 'socket.io';
 import productsRouter from './routers/products.router.js';
 import cartRouter from './routers/cart.router.js';
 import productos from './database/productos.json' assert { type: "json" };
+import mongoose, { mongo } from 'mongoose';
 
 const app = express();
 const httpServer = app.listen(8080, () => {
     console.log('escuchando el 8080 pa');
 })
 const socketServer = new Server(httpServer);
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +27,14 @@ app.use('/', (req, res) => res.send('home'));
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+
+mongoose.set('strictQuery', false);
+mongoose.connect('mongodb+srv://axeldarna8:Minecraft2011@cluster0.dg8edeg.mongodb.net/eccomerce?retryWrites=true&w=majority', error =>{
+    if (error) {
+        console.error('Cannot connect to database', error);
+        process.exit();
+    }
+});
 
 let messages = [];
 

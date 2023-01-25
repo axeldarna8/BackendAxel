@@ -2,7 +2,7 @@ import { Router } from "express";
 import fs from 'fs';
 import carts from '../database/carts.json' assert { type: "json" };
 import productos from '../database/productos.json' assert { type: "json" };
-import CartManager from "../managers/CartManager.js";
+import CartManager from "../Dao/managers/CartManager.js";
 
 const router = Router();
 const cart = new CartManager('../database/carts.json');

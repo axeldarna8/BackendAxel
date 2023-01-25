@@ -1,13 +1,27 @@
 import { Router } from "express";
 import productos from '../database/productos.json' assert { type: "json" };
-import ProductManager from "../managers/ProductManager.js";
+import ProductManager from "../Dao/managers/ProductManager.js";
+import { productModel } from "../Dao/models/product.model.js";
 
 const router = Router();
 
 
 const manager = new ProductManager('../database/productos.json');
 
-router.get('/', (req, res) => {
+router.get('/users', async (req, res) => {
+    try {
+        const products = await productModel.find();
+        res.send({
+            result: "success",
+            payload: products
+        })
+    } catch (error) {
+        console.error("cannot get products", error);
+        
+    }
+})
+
+router.get('/', async (req, res) => {
     const limit = req.query.limit;
     if (limit) {
         const productsFiltered = productos.filter(u => u.id <= limit)
