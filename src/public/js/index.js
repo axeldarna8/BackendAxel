@@ -39,12 +39,13 @@ createProductForm.addEventListener("submit", async (e) => {
     for (const field of formData.entries()) {
         product[field[0]] = field[1];
     }
-    if (!product.title || !product.description || !product.code || !product.price || !product.status || !product.stock || !product.category) {
+    if (!product.title || !product.description || !product.code || !product.price || !product.stock || !product.category) {
         Swal.fire({
             title: 'Hay campos sin completar',
             icon: 'error'
         })
     } else {
+        product.status = true;
         await fetch("/api/products", {
             body: JSON.stringify(product),
             method: "POST",

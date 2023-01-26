@@ -48,7 +48,7 @@ router.get('/:pid', (req, res) => {
 
 router.post('/', (req,res) =>{
     const item = req.body;
-    if (!item.title || !item.description || !item.code || !item.price || !item.status || !item.stock || !item.category){
+    if (!item.title || !item.description || !item.code || !item.price || !item.stock || !item.category){
         return res.status(400).send({status: "error", error: "Valores incompletos"});
     }
     manager.addProduct(item, productos);

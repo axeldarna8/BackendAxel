@@ -41,7 +41,6 @@ mongoose.connect('mongodb+srv://axeldarna8:Minecraft2011@cluster0.dg8edeg.mongod
 
 let messages = [];
 
-
 socketServer.on('connection' , socket =>{
     console.log(`New client connected, id: ${socket.id}`);
 
