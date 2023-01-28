@@ -9,9 +9,9 @@ const botonEnviar = document.getElementById("boton-enviar");
 let user;
 let chatBox = document.getElementById("chatBox");
 
+fetch ("/api/products/realTimeProducts")
 
 socket.on('products', (productos) => {
-    console.log(productos);
     const allProducts = productos.map(product =>
         `
         <tr>

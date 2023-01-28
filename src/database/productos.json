@@ -18,5 +18,25 @@
         "category": "comida",
         "status": true,
         "id": 2
+    },
+    {
+        "title": "c",
+        "description": "c",
+        "code": "32c",
+        "price": "323",
+        "stock": "323",
+        "category": "comida",
+        "status": true,
+        "id": 3
+    },
+    {
+        "title": "a",
+        "description": "da",
+        "code": "32",
+        "price": "63",
+        "stock": "32",
+        "category": "asda",
+        "status": true,
+        "id": 1
     }
 ]
