@@ -9,7 +9,6 @@ productController.socket = '';
 productController.addProductController = async (req, res) => {
     try {
         const item = req.body;
-        console.log({productController});
         await manager.addProductDB(item,productController.socket);
         res.status(200).send({ status: "Success", message: "Objeto enviado" })
     } catch (error) {

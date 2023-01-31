@@ -50,10 +50,8 @@ socketServer.on('connection', socket => {
     app.use('/', (req, res) => res.send('home'));
 
     socket.emit('products', []);
-    //console.log({...productController, message: "socket server Connection"});
 
     socket.on('message', data => {
-        //console.log('From Client: ' , data);  
         console.log(data);
         messages.push(data);
         socketServer.emit('messageLogs', messages)

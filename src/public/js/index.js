@@ -9,7 +9,7 @@ const botonEnviar = document.getElementById("boton-enviar");
 let user;
 let chatBox = document.getElementById("chatBox");
 
-fetch ("/api/products/realTimeProducts")
+fetch ("/api/products/realtimeproducts")
 
 socket.on('products', (productos) => {
     const allProducts = productos.map(product =>

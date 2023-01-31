@@ -1,7 +1,6 @@
 import { Router } from "express";
 import productos from '../database/productos.json' assert { type: "json" };
 import ProductManager from "../Dao/managers/ProductManager.js";
-import { productModel } from "../Dao/models/product.model.js";
 
 const router = Router();
 
@@ -59,21 +58,3 @@ const productRouter = ({router,controller,socket}) =>{
 }
 
 export default productRouter;
-
-/*
-router.get('/users', async (req, res) => {
-    try {
-        const products = await productModel.find();
-        res.send({
-            result: "success",
-            payload: products
-        })
-    } catch (error) {
-        console.error("cannot get products", error);
-        
-    }
-})
-
-
-
-/*export default router;*/

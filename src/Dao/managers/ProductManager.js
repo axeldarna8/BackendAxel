@@ -32,7 +32,8 @@ class ProductManager {
             console.log('ya se encuentra el producto');
         }
         else {
-            producto.id = id + 1;
+            producto.id = id;
+            id++;
             allproducts.push(producto);
             const jsonStr = JSON.stringify(allproducts);
             fs.writeFileSync(this.path, jsonStr);
@@ -49,7 +50,7 @@ class ProductManager {
     }
 
     getProductsDB = async (socket) => {
-        const products = await productModel.find().sort({_id:-1}).limit(10);
+        const products = await productModel.paginate();
         return products;
         //socket.emit('products', products);
     }
