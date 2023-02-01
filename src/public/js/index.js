@@ -9,9 +9,11 @@ const botonEnviar = document.getElementById("boton-enviar");
 let user;
 let chatBox = document.getElementById("chatBox");
 
-fetch ("/api/products/realtimeproducts")
+//fetch("api/products/realtimeproducts")
+
 
 socket.on('products', (productos) => {
+    //console.log(productos);
     const allProducts = productos.map(product =>
         `
         <tr>
@@ -26,8 +28,6 @@ socket.on('products', (productos) => {
 
     productsContainer.innerHTML = allProducts;
 })
-
-//socket.emit('message' , 'Hola, me conecte pa');
 
 createProductForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -46,13 +46,14 @@ createProductForm.addEventListener("submit", async (e) => {
         })
     } else {
         product.status = true;
-        await fetch("/api/products", {
+        socket.emit('addProduct', product)
+        /*await fetch("/api/products/", {
             body: JSON.stringify(product),
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-        });
+        });*/
         Swal.fire({
             title: 'Se ha añadido el objeto',
             icon: 'success'

@@ -1,28 +1,24 @@
 let id = 0;
 import fs from 'fs';
 import { productModel } from '../models/product.model.js';
-//import productos from '../database/productos.json' assert { type: "json" };
-//const fs = require('fs');
-//const { title } = require('process');
-
 
 class ProductManager {
 
-    /*constructor(title, description, price, thumbnail, code, stock,status, category, path) {
+    constructor(title, description, price, thumbnail, code, stock,status, category, path) {
         this.title = title;
         this.description = description;
         this.code = code;
         this.price = price;
-        this.status = true;
+        this.status = status;
         this.stock = stock;
         this.category = category;
-        this.thumbnail = [];       
+        this.thumbnail = [];
+        this.id = id;       
         this.path = './database/productos.json';
-    }*/
-
-    constructor() {
-
     }
+    /*constructor(){
+
+    }*/
 
     addProduct = (producto, allproducts) => {
         if (!fs.existsSync(this.path)) {
@@ -32,28 +28,21 @@ class ProductManager {
             console.log('ya se encuentra el producto');
         }
         else {
-            producto.id = id;
-            id++;
+            producto.id = allproducts.length + 1 ;
             allproducts.push(producto);
             const jsonStr = JSON.stringify(allproducts);
             fs.writeFileSync(this.path, jsonStr);
         }
     }
 
-    addProductDB = async (producto, socket) => {
+    addProductDB = async (producto) => {
         if (!producto.title || !producto.description || !producto.code || !producto.price || !producto.stock || !producto.category) {
             throw new Error('error en informacion');
         }
         await productModel.create(producto);
-        const products = await productModel.find().sort({_id:-1}).limit(10);
-        socket.emit('products', products);
     }
 
-    getProductsDB = async (socket) => {
-        const products = await productModel.paginate();
-        return products;
-        //socket.emit('products', products);
-    }
+    
 
     getProducts = () => {
         fs.readFile(this.path, 'utf-8', (error, contenido) => {
