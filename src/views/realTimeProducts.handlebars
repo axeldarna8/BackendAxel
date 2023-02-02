@@ -26,11 +26,25 @@
                 <th> Descripcion </th>
                 <th> Stock </th>
                 <th> Code </th>
+                <th> ID </th>
             </tr>
-            <tbody id="productslist">
+            {{#if isValid}}
+                <tbody id="productslist">
+                    {{#each docs}}
                 
-            </tbody>
+                    {{/each}}
+                </tbody>
+            {{/if}}
         </table>
+    </div>
+    <div>
+        {{#if hasPrevPage}}
+            <a href="{{prevLink}}"> Anterior </a>
+        {{/if}}
+        {{page}}
+        {{#if hasNextPage}}
+            <a href="{{nextLink}}"> Siguiente </a>
+        {{/if}}
     </div>
     <div class="divchat">
         <input type="text" id="chatBox">

@@ -42,6 +42,10 @@ class ProductManager {
         await productModel.create(producto);
     }
 
+    deleteProductDB = async (id) => {
+        await productModel.deleteOne({_id: id});
+    }
+
     
 
     getProducts = () => {

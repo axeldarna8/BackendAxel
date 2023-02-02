@@ -1,7 +1,7 @@
 <div>
     <h1> Que anda amigo </h1>
     <div class="divtabla">
-        <form >
+        <form>
             <input type="text" name="title" placeholder="Titulo">
             <input type="text" name="description" placeholder="Descripcion">
             <input type="text" name="code" placeholder="Code">
@@ -18,6 +18,7 @@
         </form>
     </div>
     <h2> Tu lista de items es </h2>
+    {{#if isValid}}
     <div>
         <table class="product-list">
             <tr>
@@ -26,33 +27,56 @@
                 <th> Descripcion </th>
                 <th> Stock </th>
                 <th> Code </th>
+                <th> ID </th>
             </tr>
             <tbody>
-                {{#if pid}}
-                <tbody>
-                    <tr>
-                        <td> {{product.title}} </td>
-                        <td> ${{product.price}} </td>
-                        <td> {{product.description}} </td>
-                        <td> {{product.stock}} </td>
-                        <td> {{product.code}} </td>
-                    </tr>
-                </tbody>
-                {{/if}}
-                {{#each productos}}
-                <tbody>
-                    <tr>
-                        <td> {{this.title}} </td>
-                        <td> ${{this.price}} </td>
-                        <td> {{this.description}} </td>
-                        <td> {{this.stock}} </td>
-                        <td> {{this.code}} </td>
-                    </tr>
-                </tbody>
-                {{/each}}
+            {{#if pid}}
+            <tbody>
+                <tr>
+                    <td> {{product.title}} </td>
+                    <td> ${{product.price}} </td>
+                    <td> {{product.description}} </td>
+                    <td> {{product.stock}} </td>
+                    <td> {{product.code}} </td>
+                </tr>
             </tbody>
+            {{/if}}
+            {{#each productos}}
+            <tbody>
+                <tr>
+                    <td> {{this.title}} </td>
+                    <td> ${{this.price}} </td>
+                    <td> {{this.description}} </td>
+                    <td> {{this.stock}} </td>
+                    <td> {{this.code}} </td>
+                </tr>
+            </tbody>
+            {{/each}}
+            </tbody>
+            {{#each docs}}
+            <tbody>
+                <tr>
+                    <td>{{this.title}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>{{this.code}}</td>
+                    <td>{{this._id}}</td>
+                </tr>
+            </tbody> 
+            {{/each}}
         </table>
+        <div>
+                {{#if hasPrevPage}}
+                    <a href="{{prevLink}}"> Anterior </a>
+                {{/if}}
+                {{page}}
+                {{#if hasNextPage}}
+                    <a href="{{nextLink}}"> Siguiente </a>
+                {{/if}}
+        </div>
     </div>
+    {{/if}}
     <div class="divchat">
         <input type="text" id="chatBox">
     </div>

@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { query, Router } from "express";
 import productos from '../database/productos.json' assert { type: "json" };
 import ProductManager from "../Dao/managers/ProductManager.js";
 import { productModel } from "../Dao/models/product.model.js";
@@ -8,27 +8,35 @@ const router = Router();
 
 const manager = new ProductManager();
 
-/*router.get('/users', async (req, res) => {
-    try {
-        const products = await productModel.find();
-        console.log(products);
-        res.send({
-            result: "success",
-            payload: products
-        })
-    } catch (error) {
-        console.error("cannot get products", error);
-        
-    }
-})*/
-
-router.get('/', async (req, res) => {
+/*router.get('/', async (req, res) => {
     const products = await productModel.find().lean();
     res.render('home', { user: 'Axel', productos: products})
+})*/
+
+router.get('/', async (req,res) =>{
+
+    let page = parseInt(req.query.page);
+    if(!page){ page = 1};
+
+    const result = await productModel.paginate({},{page, limit:10, lean:true});
+
+    result.prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}` : '';
+    result.nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}` : '';
+    result.isValid = !(page <= 0 || page > result.totalPages)
+
+    res.render('home', result)
 })
 
-router.get('/realtimeproducts', (req, res) => {
-    res.render('realTimeProducts');
+router.get('/realtimeproducts', async (req, res) => {
+    let page = parseInt(req.query.page);
+    if(!page){ page = 1};
+
+    const result = await productModel.paginate({},{page, limit:10, lean:true});
+
+    result.prevLink = result.hasPrevPage ? `/api/products/realtimeproducts?page=${result.prevPage}` : '';
+    result.nextLink = result.hasNextPage ? `/api/products/realtimeproducts?page=${result.nextPage}` : '';
+    result.isValid = !(page <= 0 || page > result.totalPages)
+    res.render('realTimeProducts', result);
 })
 
 router.get('/:pid', async (req, res) => {

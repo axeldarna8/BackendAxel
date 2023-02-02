@@ -13,7 +13,6 @@ let chatBox = document.getElementById("chatBox");
 
 
 socket.on('products', (productos) => {
-    //console.log(productos);
     const allProducts = productos.map(product =>
         `
         <tr>
@@ -22,6 +21,7 @@ socket.on('products', (productos) => {
             <td> ${product.description} </td>
             <td> ${product.stock} </td>
             <td> ${product.code} </td>
+            <td> ${product._id} </td>
         </tr> <br>
         `
     ).join(" ");
@@ -47,13 +47,6 @@ createProductForm.addEventListener("submit", async (e) => {
     } else {
         product.status = true;
         socket.emit('addProduct', product)
-        /*await fetch("/api/products/", {
-            body: JSON.stringify(product),
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });*/
         Swal.fire({
             title: 'Se ha añadido el objeto',
             icon: 'success'
@@ -65,11 +58,18 @@ deleteProductForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const id = idFieldValue.value;
-
-    await fetch("/api/products/" + id, {
-        body: id,
-        method: "DELETE"
-    });
+    if (id) {
+        socket.emit('deleteProduct', id)
+        Swal.fire({
+            title: 'Se elimino el objeto',
+            icon: 'success'
+        })
+    } else {
+        Swal.fire({
+            title: 'Ingrese un ID valido',
+            icon: 'error'
+        })
+    }
 })
 
 Swal.fire({

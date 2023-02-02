@@ -58,20 +58,20 @@ socketServer.on('connection', async (socket) => {
         socket.broadcast.emit('newUser', user)
     })
     
-    const dataEmited = await productModel.find();
-    socketServer.sockets.emit('products' , dataEmited);
+    const dataEmited = await productModel.paginate({},{limit:10, lean:true});
+    socketServer.sockets.emit('products' , dataEmited.docs);
 
     socket.on('addProduct', async (data) =>{
-        const objeto = await manager.addProductDB(data);
-        const items = await productModel.find()
-        socket.emit('products', items)
+        await manager.addProductDB(data);
+        const items = await productModel.paginate({},{limit:10, lean:true})
+        socket.emit('products', items.docs)
     })
 
-    /*const emitirdatos = async () =>{
-        const datitos = await productModel.find();
-        socket.emit('products', datitos);
-    }
-    return emitirdatos()*/
-    //socket.emit('products', productos);
+    socket.on('deleteProduct', async (data) =>{
+        await manager.deleteProductDB(data);
+        const items = await productModel.paginate({},{limit:10, lean:true})
+        socket.emit('products', items.docs)
+    })
+
     
 })

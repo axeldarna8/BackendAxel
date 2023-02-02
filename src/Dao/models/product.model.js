@@ -12,6 +12,6 @@ const productSchema = new mongoose.Schema({
     category: String
 })
 
-productSchema.plugin(mongoosePaginate)
+productSchema.plugin(mongoosePaginate);
 
 export const productModel = mongoose.model(productCollection, productSchema);
