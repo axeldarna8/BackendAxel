@@ -15,10 +15,18 @@ const manager = new ProductManager();
 
 router.get('/', async (req,res) =>{
 
-    let page = parseInt(req.query.page);
-    if(!page){ page = 1};
+    const page = req.query?.page || 1;
+    const limit = req.query?.limit || 10;
+    const filter = req.query?.query || req.body?.query || "";
 
-    const result = await productModel.paginate({},{page, limit:10, lean:true});
+    const search = {};
+    if (filter){
+        search["$or"] = [
+            {title: {$regex: filter}},
+            {description: {$regex: filter}}
+        ]
+    }
+    const result = await productModel.paginate(search,{page, limit, lean:true});
 
     result.prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}` : '';
     result.nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}` : '';
@@ -27,16 +35,8 @@ router.get('/', async (req,res) =>{
     res.render('home', result)
 })
 
-router.get('/realtimeproducts', async (req, res) => {
-    let page = parseInt(req.query.page);
-    if(!page){ page = 1};
-
-    const result = await productModel.paginate({},{page, limit:10, lean:true});
-
-    result.prevLink = result.hasPrevPage ? `/api/products/realtimeproducts?page=${result.prevPage}` : '';
-    result.nextLink = result.hasNextPage ? `/api/products/realtimeproducts?page=${result.nextPage}` : '';
-    result.isValid = !(page <= 0 || page > result.totalPages)
-    res.render('realTimeProducts', result);
+router.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts');
 })
 
 router.get('/:pid', async (req, res) => {
@@ -49,18 +49,13 @@ router.get('/:pid', async (req, res) => {
     }
 })
 
-/*router.post('/', async (req,res) =>{
-    const item = req.body;
-    await manager.addProduct(item,productos);
-    const products = await productModel.find();
-})*/
-
-router.post('/', (req,res) =>{
+router.post('/', async (req,res) =>{
     const item = req.body;
     if (!item.title || !item.description || !item.code || !item.price || !item.stock || !item.category){
         return res.status(400).send({status: "error", error: "Valores incompletos"});
     }
     manager.addProductDB(item);
+    res.render('home', item);
 })
 
 router.put('/:pid', (req, res) =>{
