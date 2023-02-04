@@ -2,13 +2,12 @@ import mongoose from "mongoose";
 
 const cartsCollection = 'carts';
 const cartsSchema = new mongoose.Schema({
-    cid: Number,
     products: {
         type: [
             {
                 products: {
                     type: mongoose.Schema.Types.ObjectId,
-                    ref: "product"
+                    ref: "products"
                 },
                 qty: Number
             }

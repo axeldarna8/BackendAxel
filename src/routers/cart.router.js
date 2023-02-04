@@ -4,13 +4,20 @@ import carts from '../database/carts.json' assert { type: "json" };
 import productos from '../database/productos.json' assert { type: "json" };
 import CartManager from "../Dao/managers/CartManager.js";
 import { cartsModel } from "../Dao/models/carts.model.js";
+import { resourceUsage } from "process";
 
 const router = Router();
 const cart = new CartManager('../database/carts.json');
 const filename = './database/carts.json';
 
-router.post('/', (req, res) => {
-    cart.addCart(cart, carts);
+router.get('/', async (req,res) =>{
+    const result = await cartsModel.find();
+    res.json(result);
+})
+
+
+router.post('/', async (req, res) => {
+    await cart.createCartDB(cart);
 })
 
 router.post('/:cid/product/:pid', (req, res) => {

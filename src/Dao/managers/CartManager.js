@@ -1,6 +1,7 @@
 import fs from 'fs';
 import productos from '../../database/productos.json' assert { type: "json" };
 import ProductManager from "../managers/ProductManager.js";
+import { cartsModel } from '../models/carts.model.js';
 
 let carritomain = [];
 
@@ -27,6 +28,10 @@ class CartManager {
         }
     }
 
+    createCartDB = async (carrito) => {
+        await cartsModel.create(carrito)
+    }
+
     addproductCarrito = (cid, allcarts, allproducts, pid) =>{
         const cartfound = allcarts.find(carrito => carrito.cid === cid);
         const productfound = allproducts.find(producto => producto.id === pid);
@@ -34,6 +39,11 @@ class CartManager {
             return res.send({ error: "No se encontro el carrito" });
         }
     }
+
+    deleteCartDB = async (id) =>{
+        await productModel.deleteOne({_id: id});
+    }
+
 }
 
 export default CartManager;
