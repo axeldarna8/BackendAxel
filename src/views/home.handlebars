@@ -21,7 +21,7 @@
     <form action="/api/products">
         Buscador: <input type="text" placeholder="Titulo" value="{{query}}" name="query"> <input type="submit" value="Buscar">
     </form>
-    {{#if isValid}}
+    
     <div>
         <table class="product-list">
             <tr>
@@ -79,7 +79,6 @@
             {{/if}}
         </div>
     </div>
-    {{/if}}
     <div class="divchat">
         <input type="text" id="chatBox">
     </div>

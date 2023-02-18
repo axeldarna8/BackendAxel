@@ -7,7 +7,7 @@ import { cartsModel } from "../Dao/models/carts.model.js";
 import { resourceUsage } from "process";
 
 const router = Router();
-const cart = new CartManager('../database/carts.json');
+const cart = new CartManager();
 const filename = './database/carts.json';
 
 router.get('/', async (req,res) =>{
@@ -15,49 +15,42 @@ router.get('/', async (req,res) =>{
     res.json(result);
 })
 
+router.get('/:cid', async (req, res) => {
+    const cid = req.params.cid;
+    const result = await cartsModel.find({_id: cid});
+    res.json(result);
+})
+
 
 router.post('/', async (req, res) => {
-    await cart.createCartDB(cart);
+    const result = await cart.createCartDB(cart);
+    res.send(result);
 })
 
-router.post('/:cid/product/:pid', (req, res) => {
+router.post('/:cid/products/:pid', async (req, res) => {
     const cid = req.params.cid;
     const pid = req.params.pid;
-    let producto = {};
-    const carritofound = carts.find(u => u.cid.toString() === cid);
-    const productfound = productos.find(producto => producto.id.toString() === pid);
-    if (carritofound) {
-        if (productfound) {
-            console.log(carritofound.products);
-            const itemencarritofound = carritofound.products.find(producto => producto.id.toString() === pid);
-            if (itemencarritofound){
-                itemencarritofound.qty++;
-                res.send({ error: "Se actualizo cantidad producto" });
-            } else {
-                producto.id = pid;
-                producto.qty = 1;
-                carritofound.products.push(producto);
-                res.send({ error: "Se agrego producto" });
-            }
-            const jsonStr = JSON.stringify(carts);
-            fs.writeFileSync(filename, jsonStr);
-        } else {
-            return res.send({ error: "No se encontro objeto en la base de datos" });
-        }
-    } else {
-        return res.send({ error: "No se encontro carrito" });
-    }
+    const result = await cart.addProductinCartDB(cid,pid);
+    res.send(result)
 })
 
-router.get('/:cid', (req, res) => {
+router.delete('/:cid', async (req, res) =>{
     const cid = req.params.cid;
-    const carritofound = carts.find(u => u.cid.toString() === cid);
-    if (!carritofound) {
-        return res.send({ error: "Lista de productos vacia" });
-    } else {
-        res.send(carritofound.products);
-    }
+    const result = await cart.deleteCartDB(cid);
+    res.send(result);
 })
+
+router.delete('/:cid/products/:pid', async (req, res) =>{
+    const cid = req.params.cid;
+    const pid = req.params.pid;
+    const result = await cart.deleteProductinCartDB(cid, pid);
+    res.send(result);
+})
+
+router.put('/:cid', async (req, res) => {
+    
+})
+
 
 
 export default router;
