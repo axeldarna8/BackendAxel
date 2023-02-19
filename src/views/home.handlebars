@@ -31,6 +31,7 @@
                 <th> Stock </th>
                 <th> Code </th>
                 <th> ID </th>
+                <th> Comprar </th>
             </tr>
             <tbody>
             {{#if pid}}
@@ -41,6 +42,8 @@
                     <td> {{product.description}} </td>
                     <td> {{product.stock}} </td>
                     <td> {{product.code}} </td>
+                    <td> {{product._id}} </td>
+                    <td> <input type="submit" value="Agregar al Carrito"> </td>
                 </tr>
             </tbody>
             {{/if}}
@@ -65,6 +68,7 @@
                     <td>{{this.stock}}</td>
                     <td>{{this.code}}</td>
                     <td>{{this._id}}</td>
+                    <td> <input type="submit" value="Agregar al Carrito"> </td>
                 </tr>
             </tbody> 
             {{/each}}
@@ -103,10 +107,6 @@
 
     .product-list {
         width: 100%;
-    }
-
-    .productlist {
-        text-align: center;
     }
 
     .divtabla {

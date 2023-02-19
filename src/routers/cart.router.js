@@ -17,8 +17,12 @@ router.get('/', async (req,res) =>{
 
 router.get('/:cid', async (req, res) => {
     const cid = req.params.cid;
-    const result = await cartsModel.find({_id: cid});
-    res.json(result);
+    const result = await cartsModel.findOne({_id: cid}).lean();
+    if (!result) {
+        return res.send({ error: "Carrito no encontrado" });
+    } else {
+        res.render('cartid', { cart: result , cid: cid , products: result.products});
+    }
 })
 
 

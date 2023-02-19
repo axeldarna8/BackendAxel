@@ -27,6 +27,7 @@ router.get('/', async (req,res) =>{
         ]
     }
     const result = await productModel.paginate(search,{page, limit, lean:true});
+    console.log(result);
 
     result.prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}` : '';
     result.nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}` : '';
