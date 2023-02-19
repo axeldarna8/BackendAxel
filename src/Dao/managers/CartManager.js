@@ -82,6 +82,23 @@ class CartManager {
         await cartsModel.updateOne({_id: cid} , cartfound)
     }
 
+    updateCartDB = async (cid, newProducts) =>{
+        const cartfound = await cartsModel.findOne({_id: cid});
+        cartfound.products = newProducts;
+        await cartsModel.updateOne({_id: cid} , cartfound);
+    }
+
+    updateProductinCartDB = async (cid, pid, newQty) => {
+        const cartfound = await cartsModel.findOne({_id: cid});
+        const arrProducts = cartfound.products
+        for (var i = 0; i < arrProducts.length; i++) {
+            if (arrProducts[i].product._id == pid) {
+                arrProducts[i].qty = newQty.qty;
+            }
+        }
+        await cartsModel.updateOne({_id: cid} , cartfound);
+    }
+
 }
 
 export default CartManager;

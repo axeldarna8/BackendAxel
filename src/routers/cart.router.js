@@ -48,9 +48,18 @@ router.delete('/:cid/products/:pid', async (req, res) =>{
 })
 
 router.put('/:cid', async (req, res) => {
-    
+    const cid = req.params.cid;
+    const newProducts = req.body
+    const result = await cart.updateCartDB(cid, newProducts);
+    res.send(result);
 })
 
-
+router.put('/:cid/products/:pid', async (req, res) => {
+    const cid = req.params.cid;
+    const pid = req.params.pid;
+    const newQty = req.body
+    const result = await cart.updateProductinCartDB(cid, pid, newQty);
+    res.send(result);
+})
 
 export default router;
