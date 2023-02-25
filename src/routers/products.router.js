@@ -3,6 +3,7 @@ import productos from '../database/productos.json' assert { type: "json" };
 import ProductManager from "../Dao/managers/ProductManager.js";
 import { productModel } from "../Dao/models/product.model.js";
 
+
 const router = Router();
 
 

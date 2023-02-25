@@ -9,6 +9,9 @@ import mongoose, { mongo } from 'mongoose';
 import messagesRouter from './routers/messages.router.js'
 import { productModel } from './Dao/models/product.model.js';
 import _ from 'mongoose-paginate-v2';
+import cookieParser from 'cookie-parser';
+import session from "express-session";
+import MongoStore from 'connect-mongo';
 
 const app = express();
 const httpServer = app.listen(8080, () => {
@@ -18,10 +21,21 @@ const socketServer = new Server(httpServer);
 
 const manager = new ProductManager();
 
+const fileStorage = FileStore(session);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'));
+
+app.use(cookieParser())
+
+app.use(session({
+    store: new fileStorage,
+    secret: 'pokemonwhite',
+    resave: true,
+    saveUninitialized: true
+}))
 
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartRouter);
@@ -47,9 +61,7 @@ socketServer.on('connection', async (socket) => {
     console.log(`New client connected, id: ${socket.id}`);
     
     
-    socket.on('message', data => {
-        //console.log('From Client: ' , data);  
-        console.log(data);
+    socket.on('message', data => { 
         messages.push(data);
         socketServer.emit('messageLogs', messages)
     })
