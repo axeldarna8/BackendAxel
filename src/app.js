@@ -3,14 +3,16 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
 import productsRouter from './routers/products.router.js';
-import ProductManager from './Dao/managers/ProductManager.js';
 import cartRouter from './routers/cart.router.js';
-import mongoose, { mongo } from 'mongoose';
 import messagesRouter from './routers/messages.router.js'
+import sessionsRouter from './routers/sessions.router.js'
+import ProductManager from './Dao/managers/ProductManager.js';
+import mongoose, { mongo } from 'mongoose';
 import { productModel } from './Dao/models/product.model.js';
 import _ from 'mongoose-paginate-v2';
 import cookieParser from 'cookie-parser';
 import session from "express-session";
+import FileStore from 'session-file-store';
 import MongoStore from 'connect-mongo';
 
 const app = express();
@@ -31,7 +33,14 @@ app.use(express.static(__dirname + '/public'));
 app.use(cookieParser())
 
 app.use(session({
-    store: new fileStorage,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb+srv://axeldarna8:Minecraft2011@cluster0.dg8edeg.mongodb.net/eccomerce?retryWrites=true&w=majority',
+        mongoOptions: {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        },
+        ttl: 1500
+    }),
     secret: 'pokemonwhite',
     resave: true,
     saveUninitialized: true
@@ -40,6 +49,7 @@ app.use(session({
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/messages', messagesRouter);
+app.use('/api/sessions', sessionsRouter);
 app.use('/', (req, res) => res.send('home'));
 
 app.engine('handlebars', handlebars.engine());
