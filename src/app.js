@@ -39,14 +39,25 @@ app.use(session({
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
-        ttl: 1500
+        ttl: 200
     }),
     secret: 'pokemonwhite',
     resave: true,
     saveUninitialized: true
 }))
 
-app.use('/api/products', productsRouter);
+function auth(req, res, next){
+    let authNotDone = false;
+    if (req.session?.user){
+        return next();
+    } else {
+        authNotDone = true
+        const error = 'No se ha logeado en su cuenta'
+        return res.status(401).render('session/login', {authNotDone, error})
+    }  
+}
+
+app.use('/api/products', auth, productsRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/messages', messagesRouter);
 app.use('/api/sessions', sessionsRouter);

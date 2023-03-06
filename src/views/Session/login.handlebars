@@ -1,5 +1,12 @@
-{{#if userNotFound}}
+
+<form action="/api/sessions/login" method="post">
+    Email : <input type="text" name="email">
+    Password : <input type="text" name="password">
+    <input type="submit" value="Iniciar sesion">
+</form>
+
+{{#if error}}
     <div>
-        No se pudo logear
+        Error: {{error}}
     </div>
 {{/if}}
