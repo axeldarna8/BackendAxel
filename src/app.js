@@ -104,7 +104,5 @@ socketServer.on('connection', async (socket) => {
         await manager.deleteProductDB(data);
         const items = await productModel.find()
         socket.emit('products', items)
-    })
-
-    
+    })   
 })
