@@ -8,3 +8,9 @@
     Password : <input type="text" name="password">
     <input type="submit" value="Enviar">
 </form>
+
+{{#if error}}
+    <div>
+        Error: {{error}}
+    </div>
+{{/if}}

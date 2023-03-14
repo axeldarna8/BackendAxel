@@ -14,6 +14,9 @@ import cookieParser from 'cookie-parser';
 import session from "express-session";
 import FileStore from 'session-file-store';
 import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
+import { generateToken, authToken } from './utils.js';
 
 const app = express();
 const httpServer = app.listen(8080, () => {
@@ -45,6 +48,11 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session())
+
 
 function auth(req, res, next){
     let authNotDone = false;
