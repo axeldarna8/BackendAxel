@@ -32,7 +32,7 @@ Autenticamos token
 export const authToken = (req, res, next) => {
     const authHeader = req.headers.auth;
     if(!authHeader) {
-        return res.status(401).send({error: "Not auth"})
+        return res.status(401).send({error: "Not authenticated"})
     }
     const token = authHeader.split(' ')[1];
     jwt.verify(token, PRIVATE_KEY, (error, credentials) => {

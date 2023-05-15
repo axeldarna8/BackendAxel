@@ -2,21 +2,25 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
+
 import productsRouter from './routers/products.router.js';
 import cartRouter from './routers/cart.router.js';
 import messagesRouter from './routers/messages.router.js'
 import sessionsRouter from './routers/sessions.router.js'
+import jwtRouter from './routers/jwt.router.js'
+
 import ProductManager from './Dao/managers/ProductManager.js';
-import mongoose, { mongo } from 'mongoose';
 import { productModel } from './Dao/models/product.model.js';
+
+import mongoose, { mongo } from 'mongoose';
 import _ from 'mongoose-paginate-v2';
 import cookieParser from 'cookie-parser';
 import session from "express-session";
 import FileStore from 'session-file-store';
 import MongoStore from 'connect-mongo';
+
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
-import { generateToken, authToken } from './utils.js';
 
 const app = express();
 const httpServer = app.listen(8080, () => {
@@ -69,6 +73,7 @@ app.use('/api/products', auth, productsRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/messages', messagesRouter);
 app.use('/api/sessions', sessionsRouter);
+app.use('/api/jwt', jwtRouter); 
 app.use('/', (req, res) => res.send('home'));
 
 app.engine('handlebars', handlebars.engine());

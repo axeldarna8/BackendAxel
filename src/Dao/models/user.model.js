@@ -9,7 +9,21 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     age: Number,
-    password: String
+    password: String,
+    cart:{
+        type: [
+            {
+                carts: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "carts"
+                }
+            }
+        ]
+    },
+    role:{
+        type: String,
+        detault: 'user'
+    }
 })
 
 export const userModel = mongoose.model(userCollection, userSchema);

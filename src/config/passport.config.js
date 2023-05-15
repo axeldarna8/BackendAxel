@@ -1,10 +1,21 @@
 import passport from "passport";
 import GitHubStrategy from 'passport-github2';
 import local from 'passport-local';
+import jwt from 'passport-jwt';
 import { userModel } from "../Dao/models/user.model.js";
 import { createHash , isValidPassword } from "../utils.js";
 
-const LocalStrategy = local.Strategy
+const LocalStrategy = local.Strategy;
+const JWTStrategy = jwt.Strategy;
+const ExtractJWT = jwt.ExtractJwt;
+
+const cookieExtractor = req => {
+    let token = null;
+    if(req && req.cookies) {
+        token = req.cookies['nombreCookieanterior']
+    }
+    return token;
+}
 
 const initializePassport = () => {
 
@@ -18,7 +29,6 @@ const initializePassport = () => {
             try {
                 const user = await userModel.findOne({email: profile._json.email});
                 if(user) {
-                    console.log('User already exist');
                     return done(null, user)
                 } else {
                     const newUser = {
@@ -37,6 +47,18 @@ const initializePassport = () => {
         }
     ))
 
+    passport.use('jwt', new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+        secretOrKey: 'MaincrasapEEE',
+    }, async (jwt_payload, done) => {
+        try {
+            return done(null, jwt_payload)
+        } catch (error) {
+            return done(error)
+        }
+    }
+    ))
+
     passport.use('register' , new LocalStrategy(
         {passReqToCallback: true, usernameField: 'email'}, async (req, username, password, done) => {
             const {first_name, last_name, email, age} = req.body;
@@ -51,6 +73,7 @@ const initializePassport = () => {
                     last_name, 
                     email, 
                     age, 
+                    role: 'user',
                     password: createHash(password)
                 }
                 let result = await userModel.create(newUser);

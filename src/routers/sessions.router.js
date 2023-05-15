@@ -35,7 +35,7 @@ router.post('/login', passport.authenticate('login', {failureRedirect: '/api/ses
 
 router.get('/failedlogin', async (req, res) =>{
     const error = 'Contraseña incorrecta'
-    return res.status(403).render('session/login', {error})
+    return res.status(401).render('session/login', {error})
 })
 
 router.get('/login-github', passport.authenticate('github', {scope: ['user: email']}), async (req, res) => {} )

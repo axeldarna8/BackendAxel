@@ -6,13 +6,7 @@ import { productModel } from "../Dao/models/product.model.js";
 
 const router = Router();
 
-
 const manager = new ProductManager();
-
-/*router.get('/', async (req, res) => {
-    const products = await productModel.find().lean();
-    res.render('home', { user: 'Axel', productos: products})
-})*/
 
 router.get('/', async (req,res) =>{
 
@@ -31,7 +25,8 @@ router.get('/', async (req,res) =>{
 
     result.prevLink = result.hasPrevPage ? `/api/products?page=${result.prevPage}` : '';
     result.nextLink = result.hasNextPage ? `/api/products?page=${result.nextPage}` : '';
-    result.isValid = !(page <= 0 || page > result.totalPages)
+    result.isValid = !(page <= 0 || page > result.totalPages);
+
 
     res.render('home', result)
 })
