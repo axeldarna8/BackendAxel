@@ -12,7 +12,7 @@ const ExtractJWT = jwt.ExtractJwt;
 const cookieExtractor = req => {
     let token = null;
     if(req && req.cookies) {
-        token = req.cookies['nombreCookieanterior']
+        token = req.cookies['codercookie']
     }
     return token;
 }
@@ -49,7 +49,7 @@ const initializePassport = () => {
 
     passport.use('jwt', new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: 'MaincrasapEEE',
+        secretOrKey: 'MaincrasapEEE', //PRIVATE_KEY de utils.js
     }, async (jwt_payload, done) => {
         try {
             return done(null, jwt_payload)
