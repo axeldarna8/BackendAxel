@@ -1,8 +1,5 @@
 import { Router } from "express";
-import mongoose from "mongoose";
 import passport from "passport";
-import { userModel } from "../Dao/models/user.model.js";
-import { createHash , isValidPassword } from "../utils.js";
 
 const router = Router();
 
@@ -35,7 +32,7 @@ router.post('/login', passport.authenticate('login', {failureRedirect: '/api/ses
 
 router.get('/failedlogin', async (req, res) =>{
     const error = 'Contraseña incorrecta'
-    return res.status(401).render('session/login', {error})
+    return res.status(400).render('session/login', {error})
 })
 
 router.get('/login-github', passport.authenticate('github', {scope: ['user: email']}), async (req, res) => {} )

@@ -21,9 +21,10 @@ import MongoStore from 'connect-mongo';
 
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
+import config from './config/config.js';
 
 const app = express();
-const httpServer = app.listen(8080, () => {
+const httpServer = app.listen(config.PORT, () => {
     console.log('escuchando el 8080 pa');
 })
 const socketServer = new Server(httpServer);
@@ -41,14 +42,14 @@ app.use(cookieParser())
 
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://axeldarna8:Minecraft2011@cluster0.dg8edeg.mongodb.net/eccomerce?retryWrites=true&w=majority',
+        mongoUrl: config.MONGO_URL,
         mongoOptions: {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
-        ttl: 200
+        ttl: 1000
     }),
-    secret: 'pokemonwhite',
+    secret: config.MONGO_SESSION_SECRET,
     resave: true,
     saveUninitialized: true
 }))
@@ -78,10 +79,10 @@ app.use('/', (req, res) => res.send('home'));
 
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
-app.set('view engine', 'handlebars');
+app.set('view engine', 'handlebars'); 
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://axeldarna8:Minecraft2011@cluster0.dg8edeg.mongodb.net/eccomerce?retryWrites=true&w=majority', error => {
+mongoose.connect(config.MONGO_URL, error => {
     if (error) {
         console.error('Cannot connect to database', error);
         process.exit();

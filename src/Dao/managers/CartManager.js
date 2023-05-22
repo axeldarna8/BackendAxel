@@ -1,10 +1,6 @@
 import fs from 'fs';
 import productos from '../../database/productos.json' assert { type: "json" };
-import ProductManager from "../managers/ProductManager.js";
 import { cartsModel } from '../models/carts.model.js';
-import { productModel } from '../models/product.model.js';
-
-let carritomain = [];
 
 const filename = './database/carts.json';
 
@@ -53,6 +49,16 @@ class CartManager {
         } else {
             return res.send({ error: "No se encontro carrito" });
         }
+    }
+
+    getCartDB = async (cid) => {
+        const cart = await cartsModel.findOne({ _id: cid }).lean();
+        return cart;
+    }
+
+    getAllCartsDB = async () => {
+        const carts = await cartsModel.find().lean();
+        return carts;
     }
 
     createCartDB = async (carrito) => {

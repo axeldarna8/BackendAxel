@@ -58,7 +58,7 @@
             </tbody>
             {{/each}}
             </tbody>
-            {{#each docs}}
+            {{#each result.docs}}
             <tbody>
                 <tr>
                     <td>{{this.title}}</td>
@@ -73,12 +73,12 @@
             {{/each}}
         </table>
         <div>
-            {{#if hasPrevPage}}
-                <a href="{{prevLink}}"> Anterior </a>
+            {{#if result.hasPrevPage}}
+                <a href="{{result.prevLink}}"> Anterior </a>
             {{/if}}
             {{page}}
-            {{#if hasNextPage}}
-                <a href="{{nextLink}}"> Siguiente </a>
+            {{#if result.hasNextPage}}
+                <a href="{{result.nextLink}}"> Siguiente </a>
             {{/if}}
         </div>
     </div>

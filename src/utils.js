@@ -3,8 +3,7 @@ import { dirname } from 'path';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-
-const PRIVATE_KEY = 'MaincrasapEEE'
+import config from './config/config.js';
 
 
 /*
@@ -13,7 +12,9 @@ const PRIVATE_KEY = 'MaincrasapEEE'
  * El password no se puede volver a obtener por ningun metodo. Irreversible
 */
 
-export const createHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+export const createHash = password => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+}
 
 export const isValidPassword = (user, password) => {
     return bcrypt.compareSync(password, user.password);
@@ -23,7 +24,7 @@ export const isValidPassword = (user, password) => {
 Generamos token
 */
 export const generateToken = (user) => {
-    const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: '24h' });
+    const token = jwt.sign({ user }, config.PRIVATE_KEY, { expiresIn: '24h' });
     return token;
 }
 
@@ -38,7 +39,7 @@ export const authToken = (req, res, next) => {
         })
     }
     const token = authToken.split(' ')[1];
-    jwt.verify(token, PRIVATE_KEY, (error, credentials) => {
+    jwt.verify(token, config.PRIVATE_KEY, (error, credentials) => {
         if (error) {
             return res.status(403).send({ error: "Not authorized" });
         }

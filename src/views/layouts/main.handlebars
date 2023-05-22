@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
 </head>
+
 <body>
     <div>
-        <h1> <a href="/api/products"> Que anda amigo </a> </h1>
-        <div class="loginOptions">
-            <h3> <a href="/api/sessions/login"> Iniciar Sesion </a> </h3> 
-            <h3> <a href="/api/sessions/login-github"> Iniciar Sesion con Github </a></h3>
-            <h3> <a href="/api/sessions/register"> Registrarse </a> </h3>
-            <h3> <a href="/api/sessions/logout"> Cerrar Sesion </a> </h3>
-        </div>
+        <h1> <a href="/api/products"> Bienvenido al Backend </a> </h1>
+        {{#if user}}
+            <div class="loginOptions">
+                <h3> Bienvenido {{user.first_name}} </h3>
+                <h3> <a href="/api/sessions/logout"> Cerrar Sesion </a> </h3>
+            </div>
+        {{else}}
+            <div class="loginOptions">
+                <h3> <a href="/api/sessions/login"> Iniciar Sesion </a> </h3>
+                <h3> <a href="/api/sessions/login-github"> Iniciar Sesion con Github </a></h3>
+                <h3> <a href="/api/sessions/register"> Registrarse </a> </h3>
+            </div>
+        {{/if}}
     </div>
     {{{ body }}}
 </body>
+
 </html>
 
 <style>
@@ -26,7 +35,7 @@
         text-align: center;
     }
 
-    .loginOptions{
+    .loginOptions {
         display: flex;
         justify-content: start;
         align-items: center;

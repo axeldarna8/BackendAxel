@@ -4,7 +4,7 @@ import { productModel } from '../models/product.model.js';
 
 class ProductManager {
 
-    constructor(title, description, price, thumbnail, code, stock,status, category, path) {
+    constructor(title, description, price, thumbnail, code, stock, status, category, path) {
         this.title = title;
         this.description = description;
         this.code = code;
@@ -13,26 +13,20 @@ class ProductManager {
         this.stock = stock;
         this.category = category;
         this.thumbnail = [];
-        this.id = id;       
+        this.id = id;
         this.path = './database/productos.json';
     }
-    /*constructor(){
 
-    }*/
 
-    addProduct = (producto, allproducts) => {
-        if (!fs.existsSync(this.path)) {
-            fs.writeFileSync(this.path, '');
-        }
-        if (allproducts.find(product => product.code === producto.code)) {
-            console.log('ya se encuentra el producto');
-        }
-        else {
-            producto.id = allproducts.length + 1 ;
-            allproducts.push(producto);
-            const jsonStr = JSON.stringify(allproducts);
-            fs.writeFileSync(this.path, jsonStr);
-        }
+
+    getAllProductsDB = async (search, { page, limit }) => {
+        const products = await productModel.paginate(search, { page, limit, lean: true });
+        return products
+    }
+
+    getProductDB = async (pid) => {
+        const product = await productModel.findOne({ _id: pid }).lean();
+        return product;
     }
 
     addProductDB = async (producto) => {
@@ -43,10 +37,31 @@ class ProductManager {
     }
 
     deleteProductDB = async (id) => {
-        await productModel.deleteOne({_id: id});
+        await productModel.deleteOne({ _id: id });
     }
 
-    
+    updateProductDB = async (pid, data) => {
+        const product = productModel.findOneAndUpdate({ _id: pid }, data, { new: true });
+        if (!product) {
+            throw new Error('Objeto no encontrado');
+        }
+        return product;
+    }
+
+    addProduct = (producto, allproducts) => {
+        if (!fs.existsSync(this.path)) {
+            fs.writeFileSync(this.path, '');
+        }
+        if (allproducts.find(product => product.code === producto.code)) {
+            console.log('ya se encuentra el producto');
+        }
+        else {
+            producto.id = allproducts.length + 1;
+            allproducts.push(producto);
+            const jsonStr = JSON.stringify(allproducts);
+            fs.writeFileSync(this.path, jsonStr);
+        }
+    }
 
     getProducts = () => {
         fs.readFile(this.path, 'utf-8', (error, contenido) => {
@@ -78,6 +93,7 @@ class ProductManager {
 
 
     }
+
     updateProduct = (id, update, campo) => {
         if (fs.existsSync(this.path)) {
             fs.promises.readFile(this.path, 'utf-8')
