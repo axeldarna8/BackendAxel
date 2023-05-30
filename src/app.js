@@ -7,6 +7,7 @@ import productsRouter from './routers/products.router.js';
 import cartRouter from './routers/cart.router.js';
 import messagesRouter from './routers/messages.router.js'
 import sessionsRouter from './routers/sessions.router.js'
+import userRouter from './routers/user.router.js'
 import jwtRouter from './routers/jwt.router.js'
 
 import ProductManager from './Dao/managers/ProductManager.js';
@@ -59,27 +60,28 @@ app.use(passport.initialize());
 app.use(passport.session())
 
 
-function auth(req, res, next){
+function auth(req, res, next) {
     let authNotDone = false;
-    if (req.session?.user){
+    if (req.session?.user) {
         return next();
     } else {
         authNotDone = true
         const error = 'No se ha logeado en su cuenta'
-        return res.status(401).render('session/login', {authNotDone, error})
-    }  
+        return res.status(401).render('session/login', { authNotDone, error })
+    }
 }
 
 app.use('/api/products', auth, productsRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/messages', messagesRouter);
 app.use('/api/sessions', sessionsRouter);
-app.use('/api/jwt', jwtRouter); 
+app.use('/api/users', userRouter);
+app.use('/api/jwt', jwtRouter);
 app.use('/', (req, res) => res.send('home'));
 
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
-app.set('view engine', 'handlebars'); 
+app.set('view engine', 'handlebars');
 
 mongoose.set('strictQuery', false);
 mongoose.connect(config.MONGO_URL, error => {
@@ -94,9 +96,9 @@ let messages = [];
 
 socketServer.on('connection', async (socket) => {
     console.log(`New client connected, id: ${socket.id}`);
-    
-    
-    socket.on('message', data => { 
+
+
+    socket.on('message', data => {
         messages.push(data);
         socketServer.emit('messageLogs', messages)
     })
@@ -104,19 +106,19 @@ socketServer.on('connection', async (socket) => {
     socket.on('authenticated', user => {
         socket.broadcast.emit('newUser', user)
     })
-    
-    const dataEmited = await productModel.find().lean();
-    socketServer.sockets.emit('products' , dataEmited);
 
-    socket.on('addProduct', async (data) =>{
+    const dataEmited = await productModel.find().lean();
+    socketServer.sockets.emit('products', dataEmited);
+
+    socket.on('addProduct', async (data) => {
         await manager.addProductDB(data);
         const items = await productModel.find()
         socket.emit('products', items)
     })
 
-    socket.on('deleteProduct', async (data) =>{
+    socket.on('deleteProduct', async (data) => {
         await manager.deleteProductDB(data);
         const items = await productModel.find()
         socket.emit('products', items)
-    })   
+    })
 })

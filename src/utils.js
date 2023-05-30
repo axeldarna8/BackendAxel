@@ -75,6 +75,19 @@ export const authorizationCheck = (rol) => {
     }
 }
 
+export const handlePolicies = (policies) => (req, res, next) => {
+    if (policies.includes("PUBLIC")) return next();
+    if (policies.includes("USER") || policies.includes("ADMIN")) {
+        const user = req.session.user;
+        if (!user) return res.send("No autenticado");
+        if (policies.includes("ADMIN")) {
+            if (user.role.toUpperCase() !== "ADMIN") return res.send("No autorizado");
+        }
+        req.user = user;
+        return next();
+    }
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

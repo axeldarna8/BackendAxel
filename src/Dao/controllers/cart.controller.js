@@ -1,6 +1,10 @@
 import CartManager from "../managers/CartManager.js";
+import ProductManager from "../managers/ProductManager.js";
+import TicketController from "./ticket.controller.js";
 
 const cart = new CartManager();
+const productManager = new ProductManager()
+const ticketController = new TicketController();
 
 class CartController {
 
@@ -57,6 +61,22 @@ class CartController {
         const newQty = req.body
         const result = await cart.updateProductinCartDB(cid, pid, newQty);
         res.send(result);
+    }
+
+    createPurchaseDB = async (req, res) => {
+            const cid  = req.params;
+            const user = req.session.user;
+            const cartfound = await cart.getCartDB(cid);
+            const purchase = cartfound.map(async product => {
+                const stock = (await productManager.getProductDB(product._id));
+                if(stock >= product.qty){
+                    await productManager.updateProductDB(product.id, {stock: stock - quantity});
+                    return product;
+                }
+            });
+            const ticket = await ticketController.createTicket(user, purchase);
+            cart = cart.filter(product => purchase.includes(product));
+            res.status(200).json({cart, ticket});
     }
 }
 

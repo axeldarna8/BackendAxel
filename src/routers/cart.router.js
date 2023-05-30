@@ -1,6 +1,5 @@
 import { Router } from "express";
 import CartManager from "../Dao/managers/CartManager.js";
-import { cartsModel } from "../Dao/models/carts.model.js";
 import CartController from "../Dao/controllers/cart.controller.js";
 
 const router = Router();
@@ -22,5 +21,7 @@ router.delete('/:cid/products/:pid', cartController.deleteProductinCartDB)
 router.put('/:cid', cartController.updateCartDB)
 
 router.put('/:cid/products/:pid', cartController.updateProductinCartDB)
+
+router.post('/:cid/purchase', cartController.createPurchaseDB);
 
 export default router;
