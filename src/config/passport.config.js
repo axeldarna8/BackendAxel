@@ -3,11 +3,14 @@ import GitHubStrategy from 'passport-github2';
 import local from 'passport-local';
 import jwt from 'passport-jwt';
 import { userModel } from "../Dao/models/user.model.js";
+import { cartsModel } from "../Dao/models/carts.model.js";
 import { createHash, isValidPassword } from "../utils.js";
+import CartManager from "../Dao/controllers/cart.controller.js";
 
 const LocalStrategy = local.Strategy;
 const JWTStrategy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
+const cartManager = new CartManager();
 
 const cookieExtractor = req => {
     let token = null;
@@ -89,6 +92,10 @@ const initializePassport = () => {
             try {
                 const user = await userModel.findOne({ email: username });
                 user.last_connection = new Date();
+                const newCart = await cartsModel.create({});
+                const newCartId = newCart._id;
+                user.cart.push({ carts: newCartId });
+                console.log(user.cart[0].carts);
                 await user.save();
                 if (!user) {
                     console.log('User does not exist');

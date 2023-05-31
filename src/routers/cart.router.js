@@ -15,14 +15,14 @@ router.post('/', cartController.createCartDB)
 
 router.post('/:cid/products/:pid', handlePolicies("USER"), cartController.addProductinCartDB)
 
-router.delete('/:cid', cartController.deleteCartDB)
+router.delete('/:cid',handlePolicies("ADMIN"), cartController.deleteCartDB)
 
-router.delete('/:cid/products/:pid', cartController.deleteProductinCartDB)
+router.delete('/:cid/products/:pid', handlePolicies("USER"), cartController.deleteProductinCartDB)
 
 router.put('/:cid', cartController.updateCartDB)
 
-router.put('/:cid/products/:pid', cartController.updateProductinCartDB)
+router.put('/:cid/products/:pid', handlePolicies("USER"),  cartController.updateProductinCartDB)
 
-router.post('/:cid/purchase', cartController.createPurchaseDB);
+router.post('/:cid/purchase', handlePolicies("USER"), cartController.createPurchaseDB);
 
 export default router;
