@@ -1,5 +1,6 @@
 import { query, Router } from "express";
 import ProductController from "../Dao/controllers/product.controller.js";
+import { handlePolicies } from "../utils.js";
 
 
 const router = Router();
@@ -14,10 +15,10 @@ router.get('/', productController.getAllProductsDB)
 
 router.get('/:pid', productController.getProducDB)
 
-router.post('/', productController.addProductDB)
+router.post('/', handlePolicies("ADMIN"), productController.addProductDB)
 
-router.put('/:pid', productController.updateProductDB)
+router.put('/:pid', handlePolicies("ADMIN"), productController.updateProductDB)
 
-router.delete('/:pid', productController.deleteProductDB)
+router.delete('/:pid', handlePolicies("ADMIN") , productController.deleteProductDB)
 
 export default router;

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { messagesModel } from "../Dao/models/messages.model.js";
+import { handlePolicies } from "../utils.js";
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', handlePolicies("USER"), (req, res) => {
     res.render('chat');
 })
 

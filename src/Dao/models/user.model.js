@@ -23,7 +23,26 @@ const userSchema = new mongoose.Schema({
     role:{
         type: String,
         default: 'user'
-    }
+    },
+    documents: [
+        {
+            name: String,
+            reference: String
+        }
+    ],
+    last_connection: Date
 })
 
+const userDtoSchema = new mongoose.Schema({
+    first_name: String,
+    email: String,
+    role: String
+});
+
+userSchema.methods.toDto = function() {
+    const { first_name, email, role } = this;
+    return { first_name, email, role };
+};
+
+export const userDtoModel = mongoose.model('userDto', userDtoSchema);
 export const userModel = mongoose.model(userCollection, userSchema);
