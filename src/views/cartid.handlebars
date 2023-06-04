@@ -17,7 +17,11 @@
                         </div>
                     {{/each}}
                     </td>
-                    <td> <input type="submit" value="Finalizar compra"> </td>
+                    <td> 
+                        <form action="/api/tickets" method="post">
+                            <input type="submit" value="Finalizar compra"> 
+                        </form>
+                    </td>
                 </tr>
             </tbody> 
         {{/if}}

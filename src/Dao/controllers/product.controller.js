@@ -28,11 +28,12 @@ class ProductController {
         }
         const result = await manager.getAllProductsDB(search, { page, limit });
         const user = req.session.user
+        const cid = user.cart[0].carts;
 
         result.prevLink = result.hasPrevPage ? `/api/products?limit=${limit}&page=${result.prevPage}` : '';
         result.nextLink = result.hasNextPage ? `/api/products?limit=${limit}&page=${result.nextPage}` : '';
         result.isValid = !(page <= 0 || page > result.totalPages);
-        res.render('home', { user, result })
+        res.render('home', { user, result, cid })
     }
 
     addProductDB = async (req, res) => {

@@ -1,0 +1,34 @@
+<div>
+    <h1> Detalles de la compra </h1>
+    {{#if purchaser}}
+    <table class="product-list">
+        <tr>
+            <th> Compra realizada por: {{purchaser}} </th>
+            <th> Codigo de ticket: {{code}} </th>
+            <th> Total de compra: {{amount}} </th>
+        </tr>
+    </table>
+    {{/if}}
+    <h2> Muchas gracias por su compra </h2>
+</div>
+
+
+<style>
+    table,
+    th {
+        border: 1px solid;
+    }
+
+    .title,
+    tr,
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    .product-list {
+        width: 100%;
+        text-align: center;
+    }
+
+</style>

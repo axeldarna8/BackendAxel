@@ -91,12 +91,15 @@ const initializePassport = () => {
         { usernameField: 'email' }, async (username, password, done) => {
             try {
                 const user = await userModel.findOne({ email: username });
+                if (user.cart.length === 0) {
+                    const newCart = await cartsModel.create({});
+                    const newCartId = newCart._id;
+                    user.cart.push({ carts: newCartId });
+                    await user.save();
+                }
+
                 user.last_connection = new Date();
-                const newCart = await cartsModel.create({});
-                const newCartId = newCart._id;
-                user.cart.push({ carts: newCartId });
-                console.log(user.cart[0].carts);
-                await user.save();
+
                 if (!user) {
                     console.log('User does not exist');
                     return done(null, false);

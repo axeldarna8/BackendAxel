@@ -36,7 +36,17 @@ const userSchema = new mongoose.Schema({
 const userDtoSchema = new mongoose.Schema({
     first_name: String,
     email: String,
-    role: String
+    role: String,
+    cart:{
+        type: [
+            {
+                carts: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "carts"
+                }
+            }
+        ]
+    }
 });
 
 userSchema.methods.toDto = function() {

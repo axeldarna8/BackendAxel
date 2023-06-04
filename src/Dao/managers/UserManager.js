@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 async function sendDeletionEmail(email) {
     const mailOptions = {
-        from: config.EMAIL_DELETE, // Reemplaza con tu dirección de correo electrónico
+        from: config.EMAIL_DELETE,
         to: email,
         subject: 'Eliminación de cuenta por inactividad',
         text: 'Debido a un largo periodo de inactividad tu cuenta fue eliminada'

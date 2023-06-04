@@ -18,9 +18,10 @@
     </div>
     <h2> Tu lista de items es </h2>
     <form action="/api/products">
-        Buscador: <input type="text" placeholder="Titulo" value="{{query}}" name="query"> <input type="submit" value="Buscar">
+        Buscador: <input type="text" placeholder="Titulo" value="{{query}}" name="query"> <input type="submit"
+            value="Buscar">
     </form>
-    
+
     <div>
         <table class="product-list">
             <tr>
@@ -33,7 +34,7 @@
                 <th> Comprar </th>
             </tr>
             <tbody>
-            {{#if pid}}
+                {{#if pid}}
             <tbody>
                 <tr>
                     <td> {{product.title}} </td>
@@ -67,18 +68,22 @@
                     <td>{{this.stock}}</td>
                     <td>{{this.code}}</td>
                     <td>{{this._id}}</td>
-                    <td> <input type="submit" value="Agregar al Carrito"> </td>
+                    <td>
+                        <form action="/api/carts/{{../cid}}/products/{{this._id}}" method="post">
+                            <input type="submit" value="Agregar al Carrito">
+                        </form>
+                    </td>
                 </tr>
-            </tbody> 
+            </tbody>
             {{/each}}
         </table>
         <div>
             {{#if result.hasPrevPage}}
-                <a href="{{result.prevLink}}"> Anterior </a>
+            <a href="{{result.prevLink}}"> Anterior </a>
             {{/if}}
             {{page}}
             {{#if result.hasNextPage}}
-                <a href="{{result.nextLink}}"> Siguiente </a>
+            <a href="{{result.nextLink}}"> Siguiente </a>
             {{/if}}
         </div>
     </div>
@@ -104,12 +109,13 @@
         text-align: center;
     }
 
-    .loginOptions{
+    .loginOptions {
         display: flex;
         justify-content: start;
         align-items: center;
         gap: 1rem;
     }
+
     .product-list {
         width: 100%;
     }

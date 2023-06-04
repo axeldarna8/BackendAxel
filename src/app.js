@@ -9,6 +9,7 @@ import messagesRouter from './routers/messages.router.js'
 import sessionsRouter from './routers/sessions.router.js'
 import userRouter from './routers/user.router.js'
 import jwtRouter from './routers/jwt.router.js'
+import ticketRouter from './routers/ticket.router.js'
 
 import ProductManager from './Dao/managers/ProductManager.js';
 import { productModel } from './Dao/models/product.model.js';
@@ -77,6 +78,7 @@ app.use('/api/messages', messagesRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/users', userRouter);
 app.use('/api/jwt', jwtRouter);
+app.use('/api/tickets', ticketRouter);
 app.use('/', (req, res) => res.send('home'));
 
 app.engine('handlebars', handlebars.engine());

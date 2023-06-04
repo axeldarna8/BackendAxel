@@ -10,7 +10,6 @@ class CartController {
 
     getCartDB = async (req, res) => {
         const cid = req.params.cid;
-        
         const result = await cart.getCartDB(cid);
         if (!result) {
             return res.send({ error: "Carrito no encontrado" });
@@ -33,7 +32,7 @@ class CartController {
         const cid = req.params.cid;
         const pid = req.params.pid;
         const result = await cart.addProductinCartDB(cid, pid);
-        res.send(result)
+        res.redirect('/api/products');
     }
 
     deleteCartDB = async (req, res) => {
